@@ -18,8 +18,14 @@ const HALF_LIFE_PERIOD = 5730;
  *
  */
 function dateSample(sampleActivity) {
-  return Math.ceil(Math.log(MODERN_ACTIVITY/parseInt(sampleActivity)) / (Math.log(2) / HALF_LIFE_PERIOD))
+  if (typeof sampleActivity !== 'string') return false;
+  let activity = parseFloat(sampleActivity);
+  if (activity <= 0 || activity > MODERN_ACTIVITY || !activity) return false;
+  console.log('activity: ', activity);
+  return Math.ceil(Math.log(MODERN_ACTIVITY / activity) / (Math.log(2) / HALF_LIFE_PERIOD));
 }
+
+// console.log(dateSample('9000'));
 
 module.exports = {
   dateSample
